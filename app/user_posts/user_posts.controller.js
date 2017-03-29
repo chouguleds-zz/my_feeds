@@ -3,8 +3,9 @@ var User = require('../users/users.model')
 
 exports.create = function(req, res) {
 
+	console.log("uu ",req.user)
 	User.findOne({
-			_id: req.body.user_id
+			_id: req.user._id
 		})
 		.then(function(user) {
 

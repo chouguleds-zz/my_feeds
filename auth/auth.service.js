@@ -26,7 +26,7 @@ exports.isAuthenticated = function() {
 				});
 				return;
 			}
-			User.findByIdAsync(decoded._id)
+			User.findById(decoded._id)
 				.then(function(user) {
 
 					//if user is not present respond unauthorized

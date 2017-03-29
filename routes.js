@@ -11,5 +11,5 @@ module.exports = function(app) {
 	app.use('/api/users', users);
 	app.use('/api/user_posts', userPosts);
 	app.use('/api/user_following', userFollowing);
-	//app.use('/auth', auth)
+	app.use('/auth', auth)
 }

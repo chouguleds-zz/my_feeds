@@ -1,9 +1,10 @@
 var UserFollowing = require('./user_following.model');
 var User = require('../users/users.model.js')
 var UserPost = require('../user_posts/user_post.model')
+
 exports.follow = function(req, res) {
 
-	var userId = req.body.userId;
+	var userId = req.user._id;
 	var followingEmail = req.body.followingEmail;
 
 	//check whether following user is valid
@@ -80,12 +81,13 @@ function normalizeUser(arr) {
 	}
 	return users;
 }
+
 exports.timeline = function(req, res) {
 
 	//get all the users user is following
 	UserFollowing.find({
 
-			user_id: req.body.user_id
+			user_id: req.user._id
 		}, 'following_user_id -_id')
 		.then(function(userFollowing) {
 
