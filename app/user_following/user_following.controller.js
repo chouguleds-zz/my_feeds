@@ -100,7 +100,7 @@ exports.timeline = function(req, res) {
 				.populate({
 					model: 'User',
 					path: 'user_id',
-					select: 'name email'
+					select: 'name email -_id'
 				})
 				.sort('-created_at')
 				.skip(req.body.skip)

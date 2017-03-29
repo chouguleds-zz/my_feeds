@@ -6,10 +6,11 @@ var User = require('../../app/users/users.model.js')
 
 var router = express.Router();
 
+//login api
 router.post('/', function(req, res) {
 
+	//find if user present or not
 	User.findOne({
-
 			email: req.body.email
 		})
 		.then(function(user) {
@@ -22,6 +23,7 @@ router.post('/', function(req, res) {
 				})
 				return;
 			}
+			//authenticate user password
 			if (!user.authenticate(req.body.password)) {
 
 				res.status(401).send({
@@ -30,6 +32,7 @@ router.post('/', function(req, res) {
 				});
 				return;
 			}
+			//sign token with user's _id
 			var token = authService.signToken(user._id)
 			res.status(200).json({
 				success: true,
