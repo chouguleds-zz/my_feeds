@@ -1,3 +1,5 @@
+'use strict';
+
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
@@ -50,6 +52,35 @@ describe('Users', function() {
 					throw err;
 				})
 		});
+		it('it should show error message if email already exists', function(done) {
+
+			var user = {
+				name: "deepak",
+				email: "chougule.ds@gmail.com",
+				password: "deepak"
+			};
+			new User(user)
+				.save()
+				.then(function(saveduser) {
+
+					chai.request(server)
+						.post('/api/users/create')
+						.send(user)
+						.then(function(res) {
+
+							console.log(res.body)
+							res.should.have.status(409);
+							res.body.should.be.a('object');
+							res.body.should.have.property('success').eql(false);
+							res.body.should.have.property('message').eql('email already exists');
+							done();
+						})
+						.catch(function(err) {
+							throw err;
+						})
+				})
+		});
 	});
+
 
 });

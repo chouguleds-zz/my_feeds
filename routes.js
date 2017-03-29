@@ -1,3 +1,5 @@
+'use strict';
+
 var users = require('./app/users');
 var auth = require('./auth')
 var userPosts = require('./app/user_posts')
